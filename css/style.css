@@ -114,13 +114,45 @@ h6 {
   font-style: normal;
 }
 
+@font-face {
+  font-family: "CroissantOne";
+  font-display: swap;
+  src: url("../fonts/CroissantOneRegular.woff") format("woff"), url("../fonts/CroissantOneRegular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CatharsisMacchiato";
+  font-display: swap;
+  src: url("../fonts/CatharsisMacchiato.woff") format("woff"), url("../fonts/CatharsisMacchiato.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CafeFrancoise";
+  font-display: swap;
+  src: url("../fonts/CafeFrancoise.woff") format("woff"), url("../fonts/CafeFrancoise.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Hotpizza";
+  font-display: swap;
+  src: url("../fonts/hotpizza.woff") format("woff"), url("../fonts/hotpizza.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
 body {
   --color-fb: #2f7bd1;
   --color-insta: #c400ff;
   --color-tw: #31a2d6;
   --color-ln: #2f3ad1;
-  --color-btnh: #d90429;
-  --color-btn: #e63946;
+  --color-btnh: #85311b;
+  --color-btn: #e32938;
   --color-backprime: #f1faee;
   --color-backscnd: #edf2f4f3;
   --color-backthrd: #a8dadc80;
@@ -142,14 +174,14 @@ body {
   --color-refh: #e63946;
   --color-devder: #00afb9;
   --color-field: #fdffff;
-  --color-sun: #fffb00;
+  --color-sun: #ffca1d33;
   --color-switcher: #00afb9;
   --color-switblk: #ffffffce;
   --color-switsdw: #0000007e;
   --color-shdw: #2b2d42;
   --color-shdwtr: #2b2d422c;
   --color-playsgn: #00afb9;
-  --color-playion: #00afb9;
+  --color-playion: #ff59ac;
   --color-playbgd: #c5fcff80;
   --color-playtrn: #f8f8f8f1;
   --color-favorite: #ffca1d;
@@ -174,9 +206,8 @@ body._lock {
 }
 
 .page {
-  padding: 20px 0 0 0;
   flex: 1 1 auto;
-  background-color: var(--color-backprime);
+  background-color: var(--color-blk);
   transition: background-color 0.5s;
 }
 
@@ -205,6 +236,38 @@ body._lock {
   font-family: "icons_brands";
   font-display: swap;
   src: url("../fonts/icons_brands.woff") format("woff"), url("../fonts/icons_brands.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CroissantOne";
+  font-display: swap;
+  src: url("../fonts/CroissantOneRegular.woff") format("woff"), url("../fonts/CroissantOneRegular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CatharsisMacchiato";
+  font-display: swap;
+  src: url("../fonts/CatharsisMacchiato.woff") format("woff"), url("../fonts/CatharsisMacchiato.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "CafeFrancoise";
+  font-display: swap;
+  src: url("../fonts/CafeFrancoise.woff") format("woff"), url("../fonts/CafeFrancoise.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Hotpizza";
+  font-display: swap;
+  src: url("../fonts/hotpizza.woff") format("woff"), url("../fonts/hotpizza.woff2") format("woff2");
   font-weight: 400;
   font-style: normal;
 }
@@ -463,10 +526,12 @@ header .search-line {
 header input {
   border: none;
   width: 60%;
-  border-radius: 3px;
+  border-radius: 1rem;
   padding: 0.5rem 1rem;
   font-family: inherit;
-  background-color: rgba(238, 238, 238, 0.4117647059);
+  font-family: "CafeFrancoise";
+  color: var(--color-favorite);
+  box-shadow: inset 2px 2px 8px var(--color-playtrn), inset -1px -1px 2px #ffffff;
 }
 
 header button {
@@ -478,10 +543,17 @@ header button {
 }
 
 .fav-container {
-  /* display: flex; */
-  background-color: rgba(233, 249, 255, 0.4941176471);
+  background-color: var(--color-favorite);
   padding: 0.25rem 1rem;
   text-align: center;
+}
+
+.fav-container h3 {
+  margin: 0.8rem 0;
+  font-family: "CroissantOne";
+  font-size: 1.5rem;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(224, 12, 12, 0.5019607843);
 }
 
 .fav-meals {
@@ -516,7 +588,7 @@ header button {
 
 .fav-meals li:hover .clear {
   opacity: 1;
-  color: #ff59ac;
+  color: var(--color-menucrs);
 }
 
 .fav-meals li img {
@@ -531,10 +603,13 @@ header button {
 
 .fav-meals li span {
   display: inline-block;
-  margin: 0.25rem 0;
+  color: #fff;
+  text-shadow: 0 0 5px var(--color-ref);
+  margin: 0.5rem 0;
   line-height: 1rem;
+  font-family: "CafeFrancoise";
   font-size: 0.8rem;
-  /* line-height: 0.5rem; */
+  letter-spacing: 0.1rem;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -542,9 +617,9 @@ header button {
 }
 
 .meal {
-  border-radius: 3px;
+  border-radius: 0.5rem;
   cursor: pointer;
-  box-shadow: 0 0 5px 2px rgba(51, 51, 51, 0.1019607843);
+  box-shadow: 0 0 10px rgba(68, 67, 66, 0.3568627451);
   margin: 1.5rem;
 }
 
@@ -556,13 +631,24 @@ header button {
   position: absolute;
   top: 1rem;
   /* box-shadow: 0 0 5px 2px #3333331a; */
-  background-color: #fff;
+  background-color: var(--color-blk);
   padding: 0.25rem 1rem;
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+  font-family: "CroissantOne";
+  font-size: 1.2rem;
+  color: var(--color-btn);
+  font-weight: 500;
+  opacity: 1;
+}
+
+.meal-header .random.hidden {
+  opacity: 0;
 }
 
 .meal-header img {
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
   -o-object-fit: cover;
      object-fit: cover;
   height: 250px;
@@ -577,23 +663,24 @@ header button {
 }
 
 .meal-body h4 {
+  font-family: "CroissantOne";
+  color: var(--color-btn);
+  font-weight: 400;
+  font-size: 1.5rem;
   margin: 0;
 }
 
 .meal-body .fav-btn {
   border: none;
   background-color: transparent;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
   color: var(--color-shdwtr);
   cursor: pointer;
 }
 
 .meal-body .fav-btn.active {
   color: var(--color-favorite);
-}
-
-.meal-body h4 {
-  margin: 0;
+  font-size: 2rem;
 }
 
 .popup-container {
@@ -615,7 +702,7 @@ header button {
 }
 
 .popup {
-  background-color: var(--color-backscnd);
+  background-color: var(--color-blk);
   border-radius: 5px;
   max-width: 600px;
   width: 90%;
@@ -629,7 +716,7 @@ header button {
 .popup .close-popup {
   position: absolute;
   top: 1rem;
-  right: 0.5rem;
+  right: 0.8rem;
   cursor: pointer;
   font-size: 1.8rem;
   border: none;
@@ -639,30 +726,36 @@ header button {
 .meal-info li {
   margin: 0.3rem 0;
   list-style: inside;
+  font-size: 1.2rem;
+  color: var(--color-btnh);
 }
 
 .meal-info p {
   text-align: justify;
-  font-size: 1rem;
+  font-size: 1.2rem;
   font-family: "Heebo";
   line-height: 120%;
   padding-top: 0.5rem;
+  color: var(--color-ref);
 }
 
 .meal-info h2 {
   text-align: center;
-  margin-bottom: 1rem;
+  margin-bottom: 1.2rem;
   margin-top: 1rem;
-  font-family: inherit;
+  font-family: "CroissantOne";
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
+  color: var(--color-btnh);
 }
 
 .meal-info h3 {
   text-align: start;
   margin-bottom: 1rem;
   margin-top: 1rem;
-  font-family: inherit;
+  font-family: "CroissantOne";
+  color: var(--color-btnh);
+  font-size: 1.5rem;
   font-weight: 600;
 }
 
@@ -681,7 +774,13 @@ header button {
 }
 
 .footer__social {
-  margin: 0px 0px 25px 0px;
+  margin: 15px 0px 15px 0px;
+}
+
+.footer .performed {
+  position: relative;
+  margin-top: 0.5rem;
+  font-size: 0.8rem;
 }
 
 ._container {
@@ -727,6 +826,16 @@ header button {
   }
 }
 
+@media (min-width: 567.98px) {
+  header input {
+    width: 80%;
+  }
+
+  .meal-body h4 {
+    font-size: 2rem;
+  }
+}
+
 @media (min-width: 639.98px) {
   ._container {
     max-width: none;
@@ -761,7 +870,7 @@ header button {
 
 @media (max-width: 1024px) {
   .fav-meals li .clear {
-    color: #ff59ac;
+    color: var(--color-menucrs);
     opacity: 1;
   }
 }

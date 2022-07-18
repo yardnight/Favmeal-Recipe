@@ -18,7 +18,7 @@ async function getRandomMeal() {
     const respData = await resp.json();
     const randomMeal = respData.meals[0];
 
-    console.log(randomMeal);
+    //// console.log(randomMeal);
 
     addMeal(randomMeal, true);
 }
@@ -34,14 +34,22 @@ async function getMealById(id) {
     return meal;
 }
 async function getMealBySearch(term) {
-    const resp = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/search.php?s=" + term
-    );
+    if (term === "") {
+        searchTerm.value = "choosen non";
+        setTimeout(reloadPage, 1000);
+        function reloadPage() {
+            location.reload();
+        }
+    } else {
+        const resp = await fetch(
+            "https://www.themealdb.com/api/json/v1/1/search.php?s=" + term
+        );
 
-    const respData = await resp.json();
-    const meals = respData.meals;
+        const respData = await resp.json();
+        const meals = respData.meals;
 
-    return meals;
+        return meals;
+    }
 }
 
 function addMeal(mealData, random = false) {
@@ -51,7 +59,11 @@ function addMeal(mealData, random = false) {
 
     meal.innerHTML = `
     <div class="meal-header">
-        ${random ? `<span class="random">Random Recipe</span>` : ""}
+        ${
+            random
+                ? `<span class="random" id ="random">Random Recipe</span>`
+                : `<span class="random hidden" id ="random">Random Recipe</span>`
+        }
         <img 
             src="${mealData.strMealThumb}" 
             alt="${mealData.strMeal}"
@@ -79,10 +91,33 @@ function addMeal(mealData, random = false) {
 
         fetchFavMeals();
     });
+    //=================<reload when click>==============================
+    const randomBtn = meal.querySelector(".random");
+    //// console.log("randomBTN", randomBtn);
+    randomBtn.addEventListener("click", () => {
+        location.reload();
+    });
 
-    mealHeader.addEventListener("click", () => {
+    // show info by double-click
+    mealHeader.addEventListener("dblclick", () => {
         showMealInfo(mealData);
     });
+    // show info by double-touch
+    mealHeader.addEventListener("touchstart", tapHandler, { passive: true });
+    var tapedTwice = false;
+
+    function tapHandler(event) {
+        if (!tapedTwice) {
+            tapedTwice = true;
+            setTimeout(function () {
+                tapedTwice = false;
+            }, 300);
+            return false;
+        }
+        event.preventDefault();
+        //action on double tap goes below
+        showMealInfo(mealData);
+    }
 
     mealsEl.appendChild(meal);
 }
@@ -200,8 +235,8 @@ function showMealInfo(mealData) {
     mealInfoEl.appendChild(mealEl);
     // show the popup
     mealPopup.classList.remove("hidden");
-    const bodyLock = document.getElementsByTagName("body");
-    console.log("Body:", bodyLock);
+    // const bodyLock = document.getElementsByTagName("body");
+    //// console.log("Body:", bodyLock);
     document.body.classList.add("_lock");
 }
 
@@ -209,3 +244,52 @@ popupCloseBtn.addEventListener("click", () => {
     mealPopup.classList.add("hidden");
     document.body.classList.remove("_lock");
 });
+
+//===============<swipe reload code>==================
+
+mealsEl.addEventListener("touchstart", fingerTouch, { passive: true });
+mealsEl.addEventListener("touchmove", fingerSwipe, { passive: true });
+
+let xOfTouch = null;
+
+let yOfTouch = null;
+
+function fingerTouch(event) {
+    //// console.log("event:", event);
+    const screenTouch = event.touches[0];
+
+    xOfTouch = screenTouch.clientX;
+    yOfTouch = screenTouch.clientY;
+}
+
+function fingerSwipe(event) {
+    if (!xOfTouch || !yOfTouch) {
+        return false;
+    }
+    let xOfSwipe = event.touches[0].clientX;
+    let yOfSwipe = event.touches[0].clientY;
+    let xDiff = xOfTouch - xOfSwipe;
+    let yDiff = yOfTouch - yOfSwipe;
+
+    if (Math.abs(xDiff) > Math.abs(yDiff)) {
+        // r-l
+        if (xDiff > 0) {
+            console.log("right");
+            if (Math.abs(xDiff) > 100) {
+                location.reload();
+            }
+        } else {
+            console.log("left");
+        }
+    } else {
+        // t-b
+        if (yDiff > 0) {
+            console.log("top");
+        } else {
+            if (Math.abs(yDiff) > 200) {
+                location.reload();
+            }
+            console.log("bottom");
+        }
+    }
+}
